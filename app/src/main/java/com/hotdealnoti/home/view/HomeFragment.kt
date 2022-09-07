@@ -1,29 +1,109 @@
 package com.hotdealnoti.home.view
 
+import android.content.Context
 import android.os.Bundle
+import android.os.Message
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.activity.OnBackPressedCallback
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isGone
 import com.hotdealnoti.R
+import com.hotdealnoti.databinding.FragmentHomeBinding
 
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
 
-
+    private lateinit var binding: FragmentHomeBinding
+    private lateinit var newWebView: WebView
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        binding.homeWebView.settings.apply {
+            javaScriptEnabled = true
+            loadWithOverviewMode = true
+            useWideViewPort = true
+            setSupportMultipleWindows(true)
+            javaScriptCanOpenWindowsAutomatically = true
+            domStorageEnabled = true
+        }
+        binding.homeWebView.loadUrl(HOME_PAGE_URL)
+
+        binding.homeWebView.webChromeClient = object : WebChromeClient() {
+            override fun onCreateWindow(
+                view: WebView?,
+                isDialog: Boolean,
+                isUserGesture: Boolean,
+                resultMsg: Message?
+            ): Boolean {
+                view?.let { v ->
+                    newWebView = WebView(v.context)
+                    newWebView.settings.apply {
+                        javaScriptEnabled = true
+                        setSupportZoom(true)
+                        builtInZoomControls = true
+                        setSupportMultipleWindows(true)
+                        javaScriptCanOpenWindowsAutomatically = true
+                        domStorageEnabled = true
+                    }
+                    newWebView.webViewClient = WebViewClient()
+                    newWebView.webChromeClient = object : WebChromeClient() {
+                        override fun onCloseWindow(window: WebView?) {
+                            binding.webViewFrameLayout.removeView(window)
+                            window?.let { it.destroy() }
+                        }
+                    }
+
+                    binding.homeWebView.isGone = true
+                    binding.webViewFrameLayout.addView(newWebView)
+
+                    resultMsg?.let {
+                        (it.obj as WebView.WebViewTransport).webView = newWebView
+                        it.sendToTarget()
+                    }
+
+
+                }
+
+                return true
+            }
+        }
+
+        return binding.root
     }
 
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.homeWebView.isGone){
+                    newWebView.loadUrl("javascript:window.close();")
+                    binding.homeWebView.isGone = false
+                } else {
+                }
+            }
+
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        onBackPressedCallback.remove()
+    }
+    companion object {
+        const val HOME_PAGE_URL: String = "https://www.whendiscount.com"
+    }
 }
