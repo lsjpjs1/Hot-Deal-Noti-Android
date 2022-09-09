@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/notificationFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -14,5 +14,23 @@
         android:id="@+id/notificationFragment"
         android:name="com.hotdealnoti.notification.view.NotificationFragment"
         android:label="fragment_notification"
-        tools:layout="@layout/fragment_notification" />
+        tools:layout="@layout/fragment_notification" >
+        <action
+            android:id="@+id/action_notificationFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.hotdealnoti.login.view.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNotificationFragment"
+        android:name="com.hotdealnoti.notification.view.AddNotificationFragment"
+        android:label="AddNotificationFragment"
+        tools:layout="@layout/fragment_add_notification" />
 </navigation>

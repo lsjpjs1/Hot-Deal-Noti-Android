@@ -5,6 +5,10 @@ plugins {
     id 'kotlin-android-extensions'
 }
 
+
+
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 android {
     compileSdk 31
 
@@ -16,6 +20,13 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+
+        buildConfigField "String", "BASE_URL",localProperties['baseUrl']
+        buildConfigField "String", "TEST_BASE_URL",localProperties['testBaseUrl']
+        buildConfigField "String", "KAKAO_NATIVE_APP_KEY",localProperties['kakaoNativeAppKey']
+
+        manifestPlaceholders = [kakaoNativeAppKey:localProperties['kakaoNativeAppKey2']]
     }
 
     buildTypes {
@@ -35,6 +46,7 @@ android {
         viewBinding true
         dataBinding = true
     }
+
 }
 
 dependencies {
@@ -63,4 +75,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+
+    implementation "com.kakao.sdk:v2-user:2.11.0" // 카카오 로그인
+
 }
