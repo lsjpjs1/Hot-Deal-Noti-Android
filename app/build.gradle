@@ -23,7 +23,6 @@ android {
 
 
         buildConfigField "String", "BASE_URL",localProperties['baseUrl']
-        buildConfigField "String", "TEST_BASE_URL",localProperties['testBaseUrl']
         buildConfigField "String", "KAKAO_NATIVE_APP_KEY",localProperties['kakaoNativeAppKey']
 
         manifestPlaceholders = [kakaoNativeAppKey:localProperties['kakaoNativeAppKey2']]
@@ -74,7 +73,7 @@ dependencies {
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 
     implementation "com.kakao.sdk:v2-user:2.11.0" // 카카오 로그인
 
