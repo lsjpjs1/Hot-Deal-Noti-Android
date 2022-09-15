@@ -9,6 +9,7 @@ interface LoginService {
 
     @GET("/oauth/callback/kakao")
     suspend fun kakaoLogin(
-        @Query("accessToken") accessToken: String
+        @Query("accessToken") accessToken: String,
+        @Query("notificationToken") notificationToken: String? = null
     ): Response<LoginDto.Companion.LoginResponse>
 }

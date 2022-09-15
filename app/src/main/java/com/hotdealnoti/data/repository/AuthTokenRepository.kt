@@ -18,7 +18,7 @@ class AuthTokenRepository {
 
     suspend fun kakaoLogin(loginRequest: LoginDto.Companion.KakaoLoginRequest): Response<LoginDto.Companion.LoginResponse> {
         return CoroutineScope(Dispatchers.IO).async {
-            loginService.kakaoLogin(accessToken = loginRequest.accessToken)
+            loginService.kakaoLogin(accessToken = loginRequest.accessToken, notificationToken = loginRequest.notificationToken)
         }.await()
     }
 }

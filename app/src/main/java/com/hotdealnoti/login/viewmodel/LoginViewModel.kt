@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cmc.atracker.model.RetrofitClient
 import com.hotdealnoti.data.local.App
 import com.hotdealnoti.data.repository.AuthTokenRepository
 import com.hotdealnoti.login.dto.LoginDto
@@ -20,16 +21,16 @@ class LoginViewModel : ViewModel(){
 
 
     fun kakaoLogin(accessToken: String){
-        Log.d("accessToken",accessToken)
         viewModelScope.launch {
 
-            Log.d("accessToken",accessToken)
-            val kakaoLoginRequest = LoginDto.Companion.KakaoLoginRequest(accessToken = accessToken)
+            val kakaoLoginRequest = LoginDto.Companion.KakaoLoginRequest(accessToken = accessToken, notificationToken = App.prefs.getValue("NOTIFICATION_TOKEN"))
             val response = AuthTokenRepository.instance.kakaoLogin(kakaoLoginRequest)
-            Log.d("successful",response.isSuccessful.toString())
             if (response.isSuccessful ){
 
                 App.prefs.setValue("AUTH_TOKEN",response.body()?.token)
+                response.body()?.let {
+                    RetrofitClient.updateAuthToken(it.token)
+                }
                 _loginSuccess.value=true
             }else{
                 _toastMessage.value = "로그인 오류"

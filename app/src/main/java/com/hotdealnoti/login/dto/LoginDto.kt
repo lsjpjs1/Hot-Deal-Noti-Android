@@ -7,7 +7,8 @@ class LoginDto {
 
 
         data class KakaoLoginRequest(
-            val accessToken: String
+            val accessToken: String,
+            val notificationToken: String?
         )
 
         data class LoginResponse(

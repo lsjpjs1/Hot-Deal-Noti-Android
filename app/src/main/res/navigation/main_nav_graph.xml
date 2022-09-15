@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_notificationFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_notificationFragment_to_addNotificationFragment"
+            app:destination="@id/addNotificationFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
