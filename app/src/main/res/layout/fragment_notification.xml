@@ -14,7 +14,8 @@
             android:id="@+id/notificationHeaderCL"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@color/purple_200"
+            android:elevation="5dp"
+            android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -22,26 +23,33 @@
                 android:layout_height="wrap_content"
                 android:text="키워드 알림"
                 android:textSize="15dp"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginRight="10dp"
-                app:srcCompat="@drawable/ic_round_add_24"
+                android:background="@drawable/add_btn"
                 android:onClick="@{()->notificationFragment.goAddNotificationFragment()}"/>
 
 
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/notificationBodyCL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

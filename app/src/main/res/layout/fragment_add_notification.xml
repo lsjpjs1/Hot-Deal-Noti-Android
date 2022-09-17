@@ -1,14 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="addNotificationFragment"
+            type="com.hotdealnoti.notification.view.AddNotificationFragment" />
+        <variable
+            name="viewModel"
+            type="com.hotdealnoti.notification.viewmodel.AddNotificationViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/addNotificationHeaderCL"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="notifi">
-        </TextView>
+            android:layout_height="60dp"
+            android:elevation="5dp"
+            android:background="@color/white"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginLeft="14dp"
+                android:onClick="@{()->addNotificationFragment.requireActivity().onBackPressed()}"
+                android:background="@drawable/arrow_back_btn"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="키워드 추가"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/addNotificationBodyCL"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            app:layout_constraintTop_toBottomOf="@id/addNotificationHeaderCL"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/pageExplanationTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="원하시는 제품의 특가 알림을 받아보세요!"
+                android:layout_marginTop="20dp"
+                android:textSize="12sp"
+                android:textColor="@color/text_gray"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <EditText
+                android:id="@+id/addKeywordET"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                android:textSize="14sp"
+                android:text="@={viewModel.keywordBody}"
+                android:hint="키워드를 입력해주세요. (예: 그램, 갤럭시북)"
+                app:layout_constraintTop_toBottomOf="@id/pageExplanationTV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/addKeywordB"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/edge_stroke"/>
+
+            <Button
+                android:id="@+id/addKeywordB"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:text="등록"
+                android:textSize="14sp"
+                android:onClick="@{()->viewModel.postKeyword()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pageExplanationTV"/>
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

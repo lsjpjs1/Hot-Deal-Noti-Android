@@ -30,7 +30,8 @@ class MainActivity : AppCompatActivity() {
             val token = task.result
             App.prefs.setValue("NOTIFICATION_TOKEN",token)
         })
-        App.prefs.removeValue("AUTH_TOKEN") //삭제예정
+
+//        App.prefs.removeValue("AUTH_TOKEN") //삭제예정
 
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
