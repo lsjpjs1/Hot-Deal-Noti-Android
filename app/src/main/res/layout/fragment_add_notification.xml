@@ -95,6 +95,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/pageExplanationTV"/>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/notificationKeywordListRV"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/addKeywordET"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="20dp"/>
 
 
 

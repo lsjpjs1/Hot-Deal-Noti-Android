@@ -1,15 +1,11 @@
 package com.hotdealnoti.notification.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cmc.atracker.model.RetrofitClient
-import com.hotdealnoti.data.local.App
-import com.hotdealnoti.data.repository.AuthTokenRepository
+import com.hotdealnoti.common.BooleanWrapper
 import com.hotdealnoti.data.repository.KeywordRepository
-import com.hotdealnoti.login.dto.LoginDto
 import com.hotdealnoti.notification.dto.NotificationDto
 import kotlinx.coroutines.launch
 
@@ -18,6 +14,16 @@ class AddNotificationViewModel : ViewModel(){
 
     private val _toastMessage= MutableLiveData<String>()
     val toastMessage:LiveData<String> = _toastMessage
+
+    private val _notificationKeywords= MutableLiveData<List<NotificationDto.Companion.NotificationKeyword>>()
+    val notificationKeywords:LiveData<List<NotificationDto.Companion.NotificationKeyword>> = _notificationKeywords
+
+    private val _deleteKeywordSuccess= MutableLiveData<BooleanWrapper>()
+    val deleteKeywordSuccess:LiveData<BooleanWrapper> = _deleteKeywordSuccess
+
+    init {
+        getNotificationKeywords()
+    }
 
 
 
@@ -39,6 +45,36 @@ class AddNotificationViewModel : ViewModel(){
 
                 _toastMessage.value = "등록 완료"//수정예정
                 keywordBody.value = ""
+                getNotificationKeywords()
+
+            }else{
+                _toastMessage.value = "오류 발생"//수정예정
+            }
+        }
+    }
+
+    fun getNotificationKeywords(){
+        viewModelScope.launch {
+
+            val response = KeywordRepository.instance.getKeywords()
+            if (response.isSuccessful ){
+
+                val getKeywordsResponse = response.body()?:return@launch
+                _notificationKeywords.value=getKeywordsResponse.keywords
+
+            }else{
+                _toastMessage.value = "오류 발생"//수정예정
+            }
+        }
+    }
+
+    fun deleteKeyword(keywordId:Int){
+        viewModelScope.launch {
+
+            val response = KeywordRepository.instance.deleteKeyword(keywordId)
+            if (response.isSuccessful ){
+                _deleteKeywordSuccess.value = BooleanWrapper(true)
+
 
             }else{
                 _toastMessage.value = "오류 발생"//수정예정

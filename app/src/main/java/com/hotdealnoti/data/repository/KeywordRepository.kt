@@ -24,4 +24,16 @@ class KeywordRepository {
             keywordService.postKeyword(postKeywordRequest)
         }.await()
     }
+
+    suspend fun getKeywords(): Response<NotificationDto.Companion.GetKeywordsResponse> {
+        return CoroutineScope(Dispatchers.IO).async {
+            keywordService.getKeywords()
+        }.await()
+    }
+
+    suspend fun deleteKeyword(notificationKeywordId: Int): Response<Void> {
+        return CoroutineScope(Dispatchers.IO).async {
+            keywordService.deleteKeyword(notificationKeywordId)
+        }.await()
+    }
 }
