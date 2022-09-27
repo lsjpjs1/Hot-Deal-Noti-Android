@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/main_background"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationCL"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -29,15 +29,26 @@
 
     </FrameLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomNavigationCL"
         android:layout_width="0dp"
         android:layout_height="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu">
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:elevation="5dp"
+        >
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            app:menu="@menu/bottom_navigation_menu">
 
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

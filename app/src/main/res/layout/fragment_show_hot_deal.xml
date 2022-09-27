@@ -2,26 +2,38 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+가
         <variable
-            name="notificationFragment"
-            type="com.hotdealnoti.notification.view.NotificationFragment" />
+            name="showHotDealFragment"
+            type="com.hotdealnoti.notification.view.ShowHotDealFragment" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/notificationHeaderCL"
+            android:id="@+id/showHotDealHeaderCL"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:elevation="5dp"
             android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginLeft="14dp"
+                android:onClick="@{()->showHotDealFragment.requireActivity().onBackPressed()}"
+                android:background="@drawable/arrow_back_btn"/>
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="키워드 알림"
+                android:text="특가페이지"
                 android:textSize="15dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -30,38 +42,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/add_btn"
-                android:onClick="@{()->notificationFragment.goAddNotificationFragment()}"/>
-
 
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/notificationBodyCL"
+        <WebView
+            android:id="@+id/showHotDealWV"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="14dp"
-            app:layout_constraintTop_toBottomOf="@id/notificationHeaderCL"
+            app:layout_constraintTop_toBottomOf="@id/showHotDealHeaderCL"
             app:layout_constraintBottom_toBottomOf="parent"
+            />
 
-            >
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/notificationListRV"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

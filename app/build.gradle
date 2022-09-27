@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
+    id "androidx.navigation.safeargs"
 }
 
 
@@ -58,8 +59,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
 
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.5.2"
+    implementation "androidx.navigation:navigation-ui-ktx:2.5.2"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     def activity_version = "1.2.0"
@@ -81,4 +82,6 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.4.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-messaging'
+
+    implementation 'org.ocpsoft.prettytime:prettytime:5.0.1.Final'
 }

@@ -15,8 +15,10 @@ import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
+import androidx.fragment.app.viewModels
 import com.hotdealnoti.R
 import com.hotdealnoti.databinding.FragmentHomeBinding
+import com.hotdealnoti.home.viewmodel.HomeViewModel
 
 
 class HomeFragment : Fragment() {
@@ -24,12 +26,44 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var newWebView: WebView
     private lateinit var onBackPressedCallback: OnBackPressedCallback
+
+    private val viewModel: HomeViewModel by viewModels()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("oncreate", "oncreate")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        webViewSetting()
+        return binding.root
+    }
 
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.homeWebView.isGone) {
+                    newWebView.loadUrl("javascript:window.close();")
+                    binding.homeWebView.isGone = false
+                } else {
+                }
+            }
+
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        onBackPressedCallback.remove()
+    }
+
+    fun webViewSetting() {
         binding.homeWebView.settings.apply {
             javaScriptEnabled = true
             loadWithOverviewMode = true
@@ -79,30 +113,8 @@ class HomeFragment : Fragment() {
                 return true
             }
         }
-
-        return binding.root
     }
 
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (binding.homeWebView.isGone){
-                    newWebView.loadUrl("javascript:window.close();")
-                    binding.homeWebView.isGone = false
-                } else {
-                }
-            }
-
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        onBackPressedCallback.remove()
-    }
     companion object {
         const val HOME_PAGE_URL: String = "https://www.whendiscount.com"
     }

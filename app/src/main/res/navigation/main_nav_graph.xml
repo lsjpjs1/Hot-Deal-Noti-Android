@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_notificationFragment_to_addNotificationFragment"
             app:destination="@id/addNotificationFragment" />
+        <action
+            android:id="@+id/action_notificationFragment_to_showHotDealFragment"
+            app:destination="@id/showHotDealFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -36,4 +39,12 @@
         android:name="com.hotdealnoti.notification.view.AddNotificationFragment"
         android:label="AddNotificationFragment"
         tools:layout="@layout/fragment_add_notification" />
+    <fragment
+        android:id="@+id/showHotDealFragment"
+        android:name="com.hotdealnoti.notification.view.ShowHotDealFragment"
+        android:label="ShowHotDealFragment" >
+        <argument
+            android:name="hotDealId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

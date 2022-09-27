@@ -4,14 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    android:elevation="10dp"
 
     >
     <item android:id="@+id/homeFragment"
-        android:title="home">
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="홈">
     </item>
 
     <item android:id="@+id/notificationFragment"
-        android:title="notification">
+        android:icon="@drawable/ic_baseline_notifications_24"
+        android:title="키워드 알림">
     </item>
 </menu>

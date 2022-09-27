@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
             // Get new FCM registration token
             val token = task.result
+//            Log.d("noti_token",token)
             App.prefs.setValue("NOTIFICATION_TOKEN",token)
         })
 
@@ -74,5 +75,13 @@ class MainActivity : AppCompatActivity() {
 
         navController = host.navController
         binding.bottomNavigationView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            when(destination.id) {
+                R.id.showHotDealFragment,R.id.addNotificationFragment -> binding.bottomNavigationCL.visibility = View.GONE
+                else -> binding.bottomNavigationCL.visibility = View.VISIBLE
+            }
+        }
+
     }
 }
