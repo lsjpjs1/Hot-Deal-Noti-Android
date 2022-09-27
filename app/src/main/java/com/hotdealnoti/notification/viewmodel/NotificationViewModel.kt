@@ -23,6 +23,9 @@ class NotificationViewModel : ViewModel(){
 
 
 
+    init {
+        getNotifications()
+    }
 
     fun getNotifications(isMore:Boolean = false){
         viewModelScope.launch {

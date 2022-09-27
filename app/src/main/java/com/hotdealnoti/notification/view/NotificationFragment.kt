@@ -40,8 +40,6 @@ class NotificationFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         if (App.prefs.getValue("AUTH_TOKEN")=="") {
             findNavController().navigate(R.id.action_notificationFragment_to_loginFragment)
-        }else{
-            viewModel.getNotifications()
         }
         super.onCreate(savedInstanceState)
     }
