@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.hotdealnoti.R
 import com.hotdealnoti.data.local.App
 import com.hotdealnoti.databinding.FragmentNotificationBinding
@@ -55,15 +57,34 @@ class NotificationFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.notificationListRV.also {
             val linearLayoutManager = LinearLayoutManager(parentActivity)
+            it.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if(!it.canScrollVertically(1)){
+                        viewModel.getNotifications(true)
+                    }
+                }
+            })
             it.layoutManager = linearLayoutManager
             it.setHasFixedSize(false)
             it.adapter = notificationListAdapter
+        }
+
+        binding.notificationListSRL.setOnRefreshListener {
+            viewModel.refreshNotification()
+            binding.notificationListSRL.isRefreshing = false
         }
 
         viewModel.notifications.observe(viewLifecycleOwner, Observer {
             it?.let {
 
                 notificationListAdapter.submitList(it.toList())
+            }
+        })
+
+        viewModel.toastMessage.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Toast.makeText(mContext,it, Toast.LENGTH_SHORT).show()
             }
         })
 
