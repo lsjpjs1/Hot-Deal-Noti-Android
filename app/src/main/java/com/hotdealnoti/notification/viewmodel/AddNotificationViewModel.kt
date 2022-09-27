@@ -48,7 +48,11 @@ class AddNotificationViewModel : ViewModel(){
                 getNotificationKeywords()
 
             }else{
-                _toastMessage.value = "오류 발생"//수정예정
+                when(response.code()){
+                    406->
+                        _toastMessage.value = "키워드는 최대 5개까지만 등록할 수 있습니다."//수정예정
+                    else -> _toastMessage.value = "에러 발생"//수정예정
+                }
             }
         }
     }

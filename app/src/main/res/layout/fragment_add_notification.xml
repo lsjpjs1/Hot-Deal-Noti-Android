@@ -63,7 +63,7 @@
                 android:id="@+id/pageExplanationTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="원하시는 제품의 특가 알림을 받아보세요!"
+                android:text="원하시는 키워드의 특가 알림을 받아보세요! (최대 5개)"
                 android:layout_marginTop="20dp"
                 android:textSize="12sp"
                 android:textColor="@color/text_gray"
