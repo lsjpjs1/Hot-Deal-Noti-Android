@@ -74,6 +74,15 @@ class HomeFragment : Fragment() {
         }
         binding.homeWebView.loadUrl(HOME_PAGE_URL)
 
+        binding.homeWebView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(
+                view: WebView?,
+                request: WebResourceRequest?
+            ): Boolean {
+                view?.loadUrl(request?.url.toString())
+                return true
+            }
+        }
         binding.homeWebView.webChromeClient = object : WebChromeClient() {
             override fun onCreateWindow(
                 view: WebView?,

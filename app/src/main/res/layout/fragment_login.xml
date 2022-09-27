@@ -10,20 +10,53 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loginHeaderCL"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="로그인이 필요합니다">
+            android:layout_height="60dp"
+            android:elevation="5dp"
+            android:background="@color/white"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="로그인"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/loginDescriptionTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:text="키워드 알림 서비스는 로그인이 필요합니다.\n 카카오 계정으로 5초 만에 로그인 해보세요!">
         </TextView>
 
         <ImageView
             android:id="@+id/kakaoLoginIV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginRight="10dp"
+            app:layout_constraintTop_toBottomOf="@id/loginDescriptionTV"
+            android:layout_marginTop="20dp"
             android:onClick="@{()->loginFragment.kakaoLogin()}"
             app:srcCompat="@drawable/kakao_login_medium_narrow" />
     </androidx.constraintlayout.widget.ConstraintLayout>
