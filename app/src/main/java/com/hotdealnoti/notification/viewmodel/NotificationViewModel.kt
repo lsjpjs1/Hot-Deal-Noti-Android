@@ -40,9 +40,9 @@ class NotificationViewModel : ViewModel(){
                     _notifications.value = response.body()?.content?:return@launch
                 }
                 notificationPageRequest = PageRequest((response.body()?.pageable?.pageNumber?:return@launch)+1,10)
-                if (response.body()?.numberOfElements==0){
-                    _toastMessage.value = "더 이상 알림이 없습니다."//수정예정
-                }
+//                if (response.body()?.numberOfElements==0){
+//                    _toastMessage.value = "더 이상 알림이 없습니다."//수정예정
+//                }
 
             }else{
                 _toastMessage.value = "오류 발생"//수정예정
