@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.hotdealnoti.R
+import com.hotdealnoti.data.local.App
 import com.hotdealnoti.databinding.FragmentLoginBinding
 import com.hotdealnoti.databinding.FragmentNotificationBinding
 import com.hotdealnoti.login.viewmodel.LoginViewModel
@@ -34,6 +35,16 @@ class LoginFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext=context
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        if (App.prefs.getValue("AUTH_TOKEN")!="") {
+            if (findNavController().currentDestination?.id==R.id.loginFragment){
+                findNavController().navigate(R.id.action_loginFragment_to_notificationFragment)
+
+            }
+        }
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
